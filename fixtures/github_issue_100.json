@@ -1,0 +1,12 @@
+{
+  "number": 100,
+  "title": "[子议题] 建立独立 GitHub 仓库开发测试 Hermes Kanban 集成方案",
+  "html_url": "https://github.com/GTZhou/TianGongKaiWu/issues/100",
+  "body": "## 背景\n\n父议题计划将天工开物既有手搓多代理协同链路迁移到 Hermes 原生 Kanban。\n\n## 初步验收标准\n\n- [ ] 独立仓库已创建\n- [ ] dry-run 模式能从样例 issue JSON 生成将要执行的 `hermes kanban create` 参数\n- [ ] 不直接写 `kanban.db`，不依赖 Hermes 内部 Python API\n",
+  "repository": {
+    "full_name": "GTZhou/TianGongKaiWu"
+  },
+  "labels": [
+    {"name": "新单"}
+  ]
+}

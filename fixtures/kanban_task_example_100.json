@@ -1,0 +1,11 @@
+{
+  "id": "task_example_100",
+  "title": "[子议题] 建立独立 GitHub 仓库开发测试 Hermes Kanban 集成方案",
+  "status": "ready",
+  "board": "tiangongkaiwu",
+  "tenant": "clawhub-system",
+  "assignee": "jiangzuodajiang",
+  "workspace": "dir:/home/zhouyu/repos/JiangZuoDaJiang/TianGongKaiWu",
+  "idempotency_key": "github:GTZhou/TianGongKaiWu#100",
+  "source_issue_url": "https://github.com/GTZhou/TianGongKaiWu/issues/100"
+}

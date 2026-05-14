@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tgkw-kanban-bridge"
+version = "0.1.0"
+description = "TianGongKaiWu Hermes Kanban low-coupling integration lab"
+requires-python = ">=3.11"
+dependencies = ["PyYAML>=6.0"]
+
+[project.scripts]
+github-issue-to-kanban = "tgkw_kanban_bridge.cli:entrypoint"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

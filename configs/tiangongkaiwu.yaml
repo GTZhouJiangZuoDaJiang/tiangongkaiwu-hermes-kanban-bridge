@@ -1,0 +1,27 @@
+board:
+  slug: tiangongkaiwu
+  name: 天工开物
+
+github:
+  repo: GTZhou/TianGongKaiWu
+  issue_url_template: "https://github.com/GTZhou/TianGongKaiWu/issues/{number}"
+  gh_command: "HOME=/home/zhouyu /home/zhouyu/.local/bin/gh-jiangzuodajiang"
+
+defaults:
+  workspace: "dir:/home/zhouyu/repos/JiangZuoDaJiang/TianGongKaiWu"
+  tenant: clawhub-system
+  idempotency_key_template: "github:GTZhou/TianGongKaiWu#{issue_number}"
+  skills:
+    - github-issues
+
+profiles:
+  枢密使: hanlinxueshi
+  将作大匠: jiangzuodajiang
+
+states:
+  github_label_to_kanban_state:
+    新单: todo
+    已派单: ready
+    已接单: running
+    已阻塞: blocked
+    已完成: done
