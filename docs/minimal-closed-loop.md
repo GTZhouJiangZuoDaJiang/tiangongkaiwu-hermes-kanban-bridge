@@ -13,11 +13,14 @@
 - GitHub issue JSON
 - `configs/tiangongkaiwu.yaml`
 - assignee role，例如 `将作大匠`
+- Hermes Kanban task id（运行态回写阶段）
 
 ## 输出
 
 - dry-run JSON：包含 `plan` 与 `would_execute`
 - 真实模式：调用 Hermes CLI 创建 Kanban task
+- 状态摘要 JSON：包含 task id、status、assignee、idempotency-key、runs 摘要
+- GitHub 审计评论：可 dry-run，也可真实回写
 
 ## 幂等键
 

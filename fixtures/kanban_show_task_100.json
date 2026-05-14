@@ -1,0 +1,35 @@
+{
+  "task": {
+    "id": "t_ba44492a",
+    "title": "[子议题] 建立独立 GitHub 仓库开发测试 Hermes Kanban 集成方案",
+    "body": "GitHub: https://github.com/GTZhou/TianGongKaiWu/issues/100\nRepo: GTZhou/TianGongKaiWu\nIssue: #100\n\nSummary:\n[子议题] 建立独立 GitHub 仓库开发测试 Hermes Kanban 集成方案\n\nAcceptance:\n- [ ] 独立仓库已创建\n- [ ] 不直接写 `kanban.db`，不依赖 Hermes 内部 Python API",
+    "assignee": "jiangzuodajiang",
+    "status": "triage",
+    "priority": 0,
+    "tenant": "clawhub-system",
+    "workspace_kind": "dir",
+    "workspace_path": "/home/zhouyu/repos/JiangZuoDaJiang/TianGongKaiWu",
+    "created_by": "user",
+    "created_at": 1778736021,
+    "started_at": null,
+    "completed_at": null,
+    "result": null,
+    "skills": ["github-issues"],
+    "max_retries": null
+  },
+  "latest_summary": null,
+  "parents": [],
+  "children": [],
+  "comments": [],
+  "events": [
+    {
+      "kind": "created",
+      "created_at": 1778736021,
+      "run_id": null,
+      "payload": {
+        "status": "triage"
+      }
+    }
+  ],
+  "runs": []
+}

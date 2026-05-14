@@ -56,6 +56,25 @@ Dry-run：
   --triage
 ```
 
+查询 Kanban task 状态：
+
+```bash
+./scripts/kanban-task-status \
+  --config configs/tiangongkaiwu.yaml \
+  --board tiangongkaiwu \
+  --task-id <task-id>
+```
+
+生成并 dry-run GitHub 审计回写：
+
+```bash
+./scripts/kanban-to-github-comment \
+  --config configs/tiangongkaiwu.yaml \
+  --status-json /tmp/tgkw-kanban-status.json \
+  --issue-number 100 \
+  --dry-run
+```
+
 ## GitHub 访问口径
 
 所有 GitHub 访问默认使用身份隔离后的 wrapper：
