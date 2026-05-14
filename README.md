@@ -111,7 +111,7 @@ hermes kanban --board tiangongkaiwu create ... --json
 ## 测试
 
 ```bash
-python -m pytest -q
+python3 -m pytest -q
 ```
 
 ## 与 TianGongKaiWu 的关系

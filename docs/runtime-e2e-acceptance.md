@@ -88,7 +88,7 @@ dry-run 会生成：
 
 ## 验收标准
 
-- `python -m pytest -q` 通过
+- `python3 -m pytest -q` 通过
 - `scripts/kanban-task-status` 能从公开 CLI 查询 task 状态
 - `scripts/kanban-to-github-comment --dry-run` 能生成完整审计评论
 - 真实模式能回写 GitHub issue comment
