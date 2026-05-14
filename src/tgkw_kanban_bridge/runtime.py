@@ -163,3 +163,48 @@ def render_github_comment_command(
             shlex.quote(str(body_file)),
         ]
     )
+
+
+def summarize_dispatch_progress(
+    show: dict[str, Any],
+    runs: list[dict[str, Any]],
+    board: str,
+) -> dict[str, Any]:
+    """Summarize promotion / dispatcher pickup evidence from public CLI JSON."""
+    task = _task_from_show(show)
+    events = show.get("events") or []
+    event_kinds = [str(event.get("kind", "")) for event in events if isinstance(event, dict)]
+    latest_run = runs[-1] if runs else {}
+    latest_run_status = str(latest_run.get("status") or latest_run.get("outcome") or "")
+    status = str(task.get("status", ""))
+    current_run_id = task.get("current_run_id") or (
+        latest_run.get("id") if status == "running" and latest_run_status == "running" else None
+    )
+    worker_pid = task.get("worker_pid") or latest_run.get("worker_pid")
+    pickup_observed = (
+        status in {"running", "done", "blocked"}
+        or any(kind in {"claimed", "spawned"} for kind in event_kinds)
+        or len(runs) > 0
+    )
+    promoted_observed = (
+        status in {"ready", "running", "done", "blocked"}
+        or "promoted" in event_kinds
+    )
+    return {
+        "task_id": str(task.get("id", "")),
+        "title": str(task.get("title", "")),
+        "board": board,
+        "status": status,
+        "assignee": str(task.get("assignee", "")),
+        "tenant": str(task.get("tenant", "")),
+        "current_run_id": current_run_id,
+        "worker_pid": worker_pid,
+        "claim_lock_present": bool(task.get("claim_lock") or latest_run.get("claim_lock")),
+        "run_count": len(runs),
+        "latest_run_status": latest_run_status,
+        "event_kinds": event_kinds,
+        "latest_event_kind": event_kinds[-1] if event_kinds else "",
+        "promoted_observed": promoted_observed,
+        "pickup_observed": pickup_observed,
+        "terminal_observed": status in {"done", "blocked", "archived"},
+    }

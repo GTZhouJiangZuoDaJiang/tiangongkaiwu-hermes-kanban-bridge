@@ -75,6 +75,19 @@ Dry-run：
   --dry-run
 ```
 
+受控推进 `triage -> ready` 并观察 dispatcher / worker pickup：
+
+```bash
+./scripts/kanban-promote-watch \
+  --config configs/tiangongkaiwu.yaml \
+  --board tiangongkaiwu \
+  --task-id <task-id> \
+  --promote \
+  --output /tmp/tgkw-kanban-promote-watch.json
+```
+
+该脚本只调用 Hermes 官方 CLI：`hermes kanban show/runs/specify --json`，不直接写 `kanban.db`，不 import Hermes 内部 Python API。
+
 ## GitHub 访问口径
 
 所有 GitHub 访问默认使用身份隔离后的 wrapper：

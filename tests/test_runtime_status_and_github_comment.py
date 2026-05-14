@@ -5,6 +5,7 @@ from tgkw_kanban_bridge.bridge import load_config
 from tgkw_kanban_bridge.runtime import (
     render_github_audit_comment,
     render_github_comment_command,
+    summarize_dispatch_progress,
     summarize_kanban_task,
 )
 
@@ -128,3 +129,46 @@ def test_github_comment_cli_dry_run_outputs_comment_without_posting(tmp_path):
     assert data["dry_run"] is True
     assert data["would_execute"].endswith("issue comment 100 --repo GTZhou/TianGongKaiWu --body-file " + data["body_file"])
     assert "task id：`t_ba44492a`" in data["comment_body"]
+
+
+def test_summarize_dispatch_progress_flags_promotion_and_pickup():
+    progress = summarize_dispatch_progress(
+        show=load_fixture("kanban_show_task_102_running.json"),
+        runs=load_fixture("kanban_runs_task_102_running.json"),
+        board="tiangongkaiwu",
+    )
+
+    assert progress["task_id"] == "t_7e31b4f3"
+    assert progress["status"] == "running"
+    assert progress["assignee"] == "jiangzuodajiang"
+    assert progress["promoted_observed"] is True
+    assert progress["pickup_observed"] is True
+    assert progress["run_count"] == 1
+    assert "promoted" in progress["event_kinds"]
+    assert "claimed" in progress["event_kinds"]
+    assert "spawned" in progress["event_kinds"]
+
+
+def test_promote_watch_cli_dry_run_renders_public_cli_command(tmp_path):
+    from tgkw_kanban_bridge.promote_watch_cli import main
+
+    output_path = tmp_path / "promote-watch.json"
+    exit_code = main([
+        "--config", str(ROOT / "configs" / "tiangongkaiwu.yaml"),
+        "--board", "tiangongkaiwu",
+        "--task-id", "t_ba44492a",
+        "--promote",
+        "--dry-run",
+        "--show-json", str(ROOT / "fixtures" / "kanban_show_task_100.json"),
+        "--runs-json", str(ROOT / "fixtures" / "kanban_runs_task_100.json"),
+        "--output", str(output_path),
+    ])
+
+    assert exit_code == 0
+    data = json.loads(output_path.read_text(encoding="utf-8"))
+    assert data["dry_run"] is True
+    assert data["uses_public_cli"] is True
+    assert data["direct_db_write"] is False
+    assert data["imports_hermes_internals"] is False
+    assert data["promotion"]["command"] == "hermes kanban --board tiangongkaiwu specify t_ba44492a --json"
+    assert data["before"]["status"] == "triage"
